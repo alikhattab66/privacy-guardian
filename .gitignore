@@ -1,12 +1,26 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
 
 # Virtual env
 .venv/
+venv/
+env/
 
 # Environment files
 .env
+.env.*
+!.env.example
 
 # VS Code
 .vscode/
@@ -14,3 +28,11 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Local database/runtime files
+*.sqlite
+*.sqlite3
+*.db
+
+# Nested local checkout accidentally created during setup
+privacy-guardian/
