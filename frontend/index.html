@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Privacy Guardian</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Privacy Guardian</p>
+        <h1>Know who holds your data. Act with confidence.</h1>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#requests">Requests</a>
+        <a href="#design">Privacy Design</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="landing">
+        <div class="hero-copy">
+          <h2>A calm privacy dashboard for data rights workflows.</h2>
+          <p>
+            This MVP shows how users could review detected organisations, understand risk,
+            and prepare controlled GDPR-style requests without storing email bodies,
+            attachments, or secrets.
+          </p>
+        </div>
+        <div class="hero-panel" aria-label="MVP safety summary">
+          <span>No raw email content</span>
+          <span>No attachments</span>
+          <span>Structured audit trail</span>
+        </div>
+      </section>
+
+      <section class="section" id="dashboard">
+        <div class="section-heading">
+          <p class="eyebrow">Dashboard</p>
+          <h2>Detected Companies</h2>
+        </div>
+        <div class="company-grid">
+          <article class="company-card">
+            <div>
+              <h3>Example Retail Ltd</h3>
+              <p>example-retail.test</p>
+            </div>
+            <strong class="risk medium">Medium</strong>
+          </article>
+          <article class="company-card">
+            <div>
+              <h3>Sample Finance Group</h3>
+              <p>sample-finance.test</p>
+            </div>
+            <strong class="risk high">High</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split" id="company-detail">
+        <div>
+          <p class="eyebrow">Company Detail</p>
+          <h2>Sample Finance Group</h2>
+          <p>
+            Risk level is based on demo privacy-risk signals. In production this would use
+            transparent, explainable criteria rather than opaque scoring.
+          </p>
+        </div>
+        <div class="risk-box">
+          <span>Risk score</span>
+          <strong>78</strong>
+          <p>High priority for a subject access request.</p>
+        </div>
+      </section>
+
+      <section class="section split" id="requests">
+        <div>
+          <p class="eyebrow">Request Creation</p>
+          <h2>Controlled GDPR request workflow</h2>
+          <p>
+            The MVP uses template references and status tracking. It avoids storing raw email
+            content and does not send real emails yet.
+          </p>
+        </div>
+        <form class="request-form">
+          <label>
+            Company
+            <input value="Sample Finance Group" readonly>
+          </label>
+          <label>
+            Request type
+            <select>
+              <option>Subject access request</option>
+              <option>Deletion request</option>
+              <option>Rectification request</option>
+            </select>
+          </label>
+          <button type="button">Create draft</button>
+        </form>
+      </section>
+
+      <section class="section" id="status">
+        <div class="section-heading">
+          <p class="eyebrow">Request Status</p>
+          <h2>Audit-friendly tracking</h2>
+        </div>
+        <ol class="timeline">
+          <li><span>Draft created</span><time>Demo</time></li>
+          <li><span>Awaiting user review</span><time>Demo</time></li>
+          <li><span>Not sent by system</span><time>Safety control</time></li>
+        </ol>
+      </section>
+
+      <section class="section" id="design">
+        <div class="section-heading">
+          <p class="eyebrow">Privacy Design</p>
+          <h2>Built around minimisation</h2>
+        </div>
+        <div class="principles">
+          <span>Collect less</span>
+          <span>Store less</span>
+          <span>Explain risk</span>
+          <span>Audit actions</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

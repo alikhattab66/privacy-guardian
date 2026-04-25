@@ -30,7 +30,7 @@ The MVP is intentionally focused on a small set of core workflows:
 The MVP explicitly does not include:
 
 - Authentication or account security flows yet.
-- PostgreSQL runtime connection or database migrations yet.
+- Production PostgreSQL runtime use yet.
 - External email API integrations.
 - AI features.
 - Storage of raw email bodies or attachments.
@@ -77,18 +77,23 @@ The docs folder also includes placeholders for important future security and pro
 The backend foundation is a simple FastAPI application with:
 
 - A working `GET /health` endpoint returning `{"status": "ok"}`.
+- Demo-safe MVP endpoints for companies, risk scores, privacy request creation, and request status.
 - Configuration handled through `app/core/config.py`.
 - Minimal logging setup in `app/core/logging.py`.
 - No dependency on PostgreSQL at application import time.
 - No authentication added yet.
 - No external email API integration.
 - A SQLAlchemy declarative base for future Alembic migrations.
-- Minimal `User` and `AuditEvent` models.
+- Alembic migration scaffolding.
+- Minimal `User`, `AuditEvent`, `DetectedCompany`, and `PrivacyRequest` models.
+- A static frontend dashboard prototype.
 
 The first models are intentionally small:
 
 - `User`: stores only `id`, `email`, and `created_at`.
 - `AuditEvent`: stores structured event metadata only, with no raw email content, attachments, secrets, or free-text payloads.
+- `DetectedCompany`: stores company metadata and risk indicators.
+- `PrivacyRequest`: stores request type, status, and template reference without raw email content.
 
 ## Standards And Regulations Considered
 
@@ -114,18 +119,21 @@ Completed so far:
 - Local environment example file.
 - Backend health endpoint foundation.
 - Minimal backend configuration and logging.
-- SQLAlchemy base and first privacy-safe models.
+- Pytest coverage for health and demo-safe endpoints.
+- SQLAlchemy base and privacy-safe models.
+- Alembic migration scaffolding and first migration.
+- Audit logging service foundation.
+- Demo-safe MVP API endpoints.
+- Static frontend dashboard prototype.
 - Basic repository notes and project summary.
 
 Not completed yet:
 
 - Authentication and account lifecycle.
-- Database connection management.
-- Alembic migrations.
+- Production database deployment.
 - Full test suite.
 - Data retention enforcement.
-- Request generation workflow.
-- Frontend implementation.
+- Real request delivery workflow.
 - Production deployment configuration.
 
 ## Next Technical Steps
@@ -135,13 +143,13 @@ Recommended next steps:
 1. Fill in `docs/data-handling-rules.md` with explicit allowed, forbidden, retained, and deleted data categories.
 2. Complete `docs/threat-model.md` and `docs/abuse-cases.md` before adding user-facing workflows.
 3. Add tests for configuration loading and the health endpoint.
-4. Introduce database session management without connecting to production services.
-5. Add Alembic migrations for the existing models.
-6. Define a strict audit event taxonomy.
-7. Add data retention and deletion rules before storing user workflow data.
-8. Design a narrow request-generation workflow using controlled templates.
-9. Add authentication only after the data model and security assumptions are documented.
-10. Add CI checks for tests, formatting, and secret safety.
+4. Replace demo data with database-backed workflows.
+5. Define a stricter audit event taxonomy and validation rules.
+6. Add data retention and deletion rules before storing user workflow data.
+7. Design a narrow request-generation workflow using controlled templates.
+8. Add authentication only after the data model and security assumptions are documented.
+9. Add CI checks for tests, formatting, and secret safety.
+10. Conduct a DPIA-style review before any external email integration.
 
 ## How To Explain This Project In Interviews
 

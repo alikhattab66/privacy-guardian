@@ -16,8 +16,22 @@ class User(Base):
         server_default=func.now(),
         nullable=False,
     )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
 
     audit_events: Mapped[list["AuditEvent"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    detected_companies: Mapped[list["DetectedCompany"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    privacy_requests: Mapped[list["PrivacyRequest"]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",
     )

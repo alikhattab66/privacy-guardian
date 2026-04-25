@@ -9,7 +9,7 @@ The MVP should stay narrow: data discovery, risk review, request generation, and
 ```text
 backend/   FastAPI application, backend configuration, and backend tests
 docs/      Product, architecture, threat model, and data-handling notes
-frontend/  Placeholder for the user-facing application
+frontend/  Static MVP dashboard prototype
 infra/     Placeholder for deployment and infrastructure configuration
 security/  Placeholder for security review artifacts and policies
 tests/     Placeholder for cross-project tests
@@ -17,7 +17,7 @@ tests/     Placeholder for cross-project tests
 
 ## Backend Setup
 
-The backend currently exposes a minimal FastAPI app with a health endpoint. It does not connect to PostgreSQL yet and does not require authentication for local health checks.
+The backend exposes a FastAPI app with a health endpoint and demo-safe MVP endpoints. It does not require PostgreSQL for local health checks or tests, and it does not include authentication yet.
 
 ```powershell
 cd backend
@@ -30,7 +30,7 @@ uvicorn main:app --reload
 
 Keep local secrets in `backend/.env`. Do not commit real secrets or production credentials.
 
-## Test The Health Endpoint
+## Backend Endpoints
 
 With the backend running locally:
 
@@ -45,6 +45,50 @@ Expected response:
   "status": "ok"
 }
 ```
+
+Demo-safe MVP endpoints:
+
+```text
+GET  /api/v1/demo/companies
+GET  /api/v1/demo/companies/{company_id}
+GET  /api/v1/demo/companies/{company_id}/risk
+POST /api/v1/demo/companies/{company_id}/privacy-requests
+GET  /api/v1/demo/privacy-requests/{request_id}
+```
+
+These endpoints use placeholder data only. They do not connect to external email APIs and do not store raw email content, attachments, or secrets.
+
+## Run Tests
+
+From the `backend` directory with the virtual environment activated:
+
+```powershell
+pytest
+```
+
+The test suite covers the health endpoint and demo-safe MVP endpoints without requiring PostgreSQL.
+
+## Database And Migrations
+
+PostgreSQL support is configured through `DATABASE_URL` in the environment. Use `backend/.env.example` as a template and keep real credentials in `backend/.env`.
+
+To apply migrations after configuring a local PostgreSQL database:
+
+```powershell
+cd backend
+alembic upgrade head
+```
+
+The first migration creates the privacy-safe foundation models:
+
+- `users`
+- `audit_events`
+- `detected_companies`
+- `privacy_requests`
+
+## Frontend Prototype
+
+Open `frontend/index.html` in a browser to view the static MVP dashboard prototype.
 
 ## Privacy And Security Guardrails
 
@@ -68,7 +112,13 @@ Start with these documents before expanding implementation:
 - `docs/abuse-cases.md`
 - `docs/compliance-assumptions.md`
 - `docs/core-user-flow.md`
+- `PROJECT_SUMMARY.md`
+- `INTERVIEW_NOTES.md`
+- `ROADMAP.md`
+- `SECURITY.md`
+- `PRIVACY_DESIGN.md`
+- `PRODUCT_STRATEGY_REVIEW.md`
 
 ## Current Status
 
-This repository is in early MVP setup. The backend skeleton exists, documentation placeholders are present, and the next implementation work should focus on a minimal, auditable privacy workflow before adding broader product features.
+This repository is in MVP foundation stage. It includes a FastAPI backend, tests, privacy-safe models, Alembic migration scaffolding, demo-safe endpoints, a static dashboard prototype, and portfolio-ready documentation. The next implementation work should replace demo data with authenticated, database-backed workflows while preserving data minimisation and auditability.
